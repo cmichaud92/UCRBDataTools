@@ -1,11 +1,17 @@
 Package: UCRBDataTools
-Title: What the Package Does (One Line, Title Case)
+Title: Helps Restructure Common Types of Field Data
 Version: 0.0.0.9000
-Authors@R: c(
- .
-   )
-Description: What the package does (one paragraph).
+Authors@R: 
+  person("Christopher", "Michaud", , "christopher_michaud@fws.gov", role = c("aut", "cre"))
+Description: Convenience functions used to modify dataset types common to UCRB Recovery Program.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+Depends: 
+    R (>= 2.10)
+LazyData: true
+Imports: 
+    lubridate,
+    dplyr,
+    readxl
