@@ -54,3 +54,12 @@
 #'
 #'
 "tbl_reach"
+
+#' Species definitions adapted from STReaMS species look-up table
+#'
+#' A dataset with 83 records and 5 fields
+#'
+#' @format A data frame
+#'
+#'
+"tbl_spp"
