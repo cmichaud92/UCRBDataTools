@@ -11,6 +11,6 @@ A data frame
 tbl_reach
 }
 \description{
-A dataset with 100 records and 12 fields
+A dataset with 78 records and 12 fields
 }
 \keyword{datasets}

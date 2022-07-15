@@ -48,7 +48,7 @@
 
 #' Reach definitions and descriptions
 #'
-#' A dataset with 100 records and 12 fields
+#' A dataset with 78 records and 12 fields
 #'
 #' @format A data frame
 #'
