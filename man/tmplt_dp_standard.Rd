@@ -13,5 +13,6 @@ tmplt_dp_standard
 \description{
 A dataset containing 1 record (NA) but possessing typed columns.  This may be
 joined to processed data to enusre no unexpected changes to data types
+This template may be deprecated... eval and delete
 }
 \keyword{datasets}

@@ -22,6 +22,7 @@
 #'
 #' A dataset containing 1 record (NA) but possessing typed columns.  This may be
 #' joined to processed data to enusre no unexpected changes to data types
+#' This template may be deprecated... eval and delete
 #'
 #' @format A list containing 3 typed dataframes
 #'
@@ -63,3 +64,25 @@
 #'
 #'
 "tbl_spp"
+
+#' Data typed streams field data upload template, including vectors of rqd fields
+#' and more
+#'
+#' A list, 9 elements
+#'
+#' @format A list
+#'
+#'
+"tmplt_streams_field"
+
+#' Template to check data against the electrofishing data standard
+#'
+#' A dataset containing 1 record (NA) but possessing typed columns.  This may be
+#' joined to processed data to ensure no unexpected changes to data types
+#' This template superceeds `tmplt_dp_standard`
+#'
+#' @format A list containing 3 typed dataframes
+#'
+#'
+"tmplt_electrofish_standard"
+
