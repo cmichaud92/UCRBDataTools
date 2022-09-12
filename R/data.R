@@ -29,16 +29,16 @@
 #'
 "tmplt_dp_standard"
 
-#' Local USGS guaging stations
+#' National Water Information System gage locatons and codes for STReaMS rivers
 #'
-#' A dataset containing 13 records of location and other high level station data
+#' A dataset containing ~438 records of location and other high level station data
 #'
 #' @format A data frame
 #'
 #'
-"tbl_NWIS_guage"
+"tbl_NWIS_gage"
 
-#' National Water Information System data parameter codes
+#' National Water Information System gage locatons and codes for STReaMS rivers
 #'
 #' A dataset 11 useful data parameter codes for use with dataRetrevial
 #'
@@ -65,6 +65,16 @@
 #'
 "tbl_spp"
 
+#' Species definitions adapted from STReaMS species look-up table matched with
+#' CPW species codes
+#'
+#' A dataset with 79 records and 6 fields
+#'
+#' @format A data frame
+#'
+#'
+"tbl_spp_crswlk"
+
 #' Data typed streams field data upload template, including vectors of rqd fields
 #' and more
 #'
@@ -86,3 +96,32 @@
 #'
 "tmplt_electrofish_standard"
 
+#' Template to check data against the electrofishing data standard
+#'
+#' A dataset containing 1 record (NA) but possessing typed columns.  This may be
+#' joined to processed data to ensure no unexpected changes to data types
+#' Also contains column types strings for import with readr::read_csv
+#' This template superceeds `tmplt_electrofish_standard`
+#'
+#' @format A list containing 3 typed dataframes and 3 column type strings
+#'
+#'
+"tmplt_electrofish_standard_v2"
+
+#' A list including relevant dimension tables and vectors from the STReaMS database
+#'
+#' A large object containing 19 elements
+#'
+#' @format A list
+#'
+#'
+"dimension_streams"
+
+#' A list including useful species subsetting vectors
+#'
+#' A list object containing 4 elements
+#'
+#' @format A list
+#'
+#'
+"vec_spp"
