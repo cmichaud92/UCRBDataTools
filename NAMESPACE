@@ -2,7 +2,9 @@
 
 export(dp_type_ck)
 export(field_xlsx_wkbk)
+export(get_config)
 export(orphan)
+export(read_streams_stock_sub)
 export(str_parse_enc)
 export(tag_aggregate)
 export(tag_calc_effort)
