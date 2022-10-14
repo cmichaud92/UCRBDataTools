@@ -85,13 +85,21 @@
 #'
 "tmplt_streams_field"
 
-#' Template to check data against the electrofishing data standard
+#' Data typed streams field data upload template, including vectors of rqd fields
+#' and more
 #'
-#' A dataset containing 1 record (NA) but possessing typed columns.  This may be
-#' joined to processed data to ensure no unexpected changes to data types
-#' This template superceeds `tmplt_dp_standard`
+#' A list, 9 elements
 #'
-#' @format A list containing 3 typed dataframes
+#' @format A list
+#'
+#'
+"tmplt_streams_stock"
+
+#' Template to check data against the STReaMS stocking template data standard
+#'
+#'
+#' @format A list containing 2 typed dataframes and a series of 4 vectors
+#' referencing column names
 #'
 #'
 "tmplt_electrofish_standard"

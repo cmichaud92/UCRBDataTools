@@ -3,16 +3,15 @@
 \docType{data}
 \name{tmplt_electrofish_standard}
 \alias{tmplt_electrofish_standard}
-\title{Template to check data against the electrofishing data standard}
+\title{Template to check data against the STReaMS stocking template data standard}
 \format{
-A list containing 3 typed dataframes
+A list containing 2 typed dataframes and a series of 4 vectors
+referencing column names
 }
 \usage{
 tmplt_electrofish_standard
 }
 \description{
-A dataset containing 1 record (NA) but possessing typed columns.  This may be
-joined to processed data to ensure no unexpected changes to data types
-This template superceeds \code{tmplt_dp_standard}
+Template to check data against the STReaMS stocking template data standard
 }
 \keyword{datasets}
