@@ -1,0 +1,214 @@
+---
+title: "QC stocking submission"
+author: "Chris Michaud"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(UCRBDataTools)
+
+theme_set(theme_bw())
+```
+
+```{r}
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# User defined variables          !
+# Assign values below             !
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+# Agency = STReaMS org code for agency completing work (eg "CPW-NASRF")
+# Study = STReaMS study code for the project (eg "29d")
+# Data year = the year the data was collected (eg 2022)
+# Test = If testing -> TRUE (no output saved) FALSE (output saved)
+
+AGENCY <- "CPW-NASRF"
+STUDY <- "29d"
+DATA_YEAR <- 2022
+TEST <- TRUE
+```
+
+```{r}
+config <- get_config("config_stocking.yml", .study = STUDY)
+
+file_path <- list.files(path = paste0(config$raw_data_path,
+                                      DATA_YEAR),
+                       pattern = paste0(config$agency,
+                                        ".*-stocking_",
+                                        ".*\\.xlsx"),
+                       full.names = TRUE)
+
+```
+
+
+
+```{r data-io}
+dat_list <- stock_read_streams_sub(file_path)
+tmp_stock <- dat_list$dat %>% 
+  mutate(across(`STOCK DATE`, ~ymd_hm(paste(`STOCK DATE`, `STOCK TIME`))),
+         across(`STOCK DATE`, ~force_tz(., tzone = 'UTC')),
+         .keep = "unused")
+attributes(tmp_stock$`STOCK DATE`)
+```
+
+
+```{r tests}
+stock_rqd_na(tmp_stock)
+stock_other_na(tmp_stock)
+stock_ck_ranges(tmp_stock)
+stock_ck_tags(tmp_stock, `PIT TAG 134`)
+unique(tmp_stock$NOTES)
+unique(tmp_stock$SOURCE)
+ck <- dimension_streams$tbl_pond
+```
+
+```{r corrections}
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# Add data corrections here !
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+stock <- tmp_stock
+
+
+```
+
+```{r}
+shed_pittag_strings <- stock %>%
+  filter(grepl('LOST TAG', NOTES, ignore.case = TRUE)) %>%
+  select(`SHED PIT TAG 134` = `PIT TAG 134`,
+         idx)
+
+```
+
+```{r retest}
+stock_rqd_na(stock)
+stock_other_na(stock)
+stock_ck_ranges(stock)
+stock_ck_tags(stock, `PIT TAG 134`)
+```
+
+```{r}
+stock_flg <- stock_flag(stock)
+```
+
+```{r}
+ggplot(stock) +
+  geom_boxplot(aes(x = LENGTH, y = `STOCKING NUMBER`, fill = SPECIES))
+
+if(sum(!is.na(stock$WEIGHT)) > 10) {
+  stock %>% 
+    filter(!is.na(WEIGHT)) %>% 
+  ggplot() +
+    geom_boxplot(aes(x = WEIGHT, y = `STOCKING NUMBER`, fill = SPECIES))
+}
+
+if(sum(!is.na(stock$`RIVER TEMP`)) > 10) {
+  stock %>% 
+    filter(!is.na(`RIVER TEMP`) |
+             !is.na(`TANK TEMP`)) %>% 
+  ggplot() +
+    geom_point(aes(x = `STOCK DATE`, y = `RIVER TEMP`),
+               pch = 21,
+               fill = "dodger blue",
+               cex = 3) +
+    geom_point(aes(x = `STOCK DATE`, y = `TANK TEMP`),
+               pch = 21,
+               fill = "dark green",
+               cex = 3) +
+    geom_hline(yintercept = 30, color = "red") +
+    labs(x = "Stocking Date",
+         y = "Temperature (*c)")
+}
+
+if(sum(!is.na(stock$`PH RIVER`)) > 10) {
+  stock %>% 
+    filter(!is.na(`PH RIVER`) |
+             !is.na(`PH TANK`)) %>% 
+  ggplot() +
+    geom_point(aes(x = `STOCK DATE`, y = `PH RIVER`),
+               pch = 21,
+               fill = "dodger blue",
+               cex = 3) +
+    geom_point(aes(x = `STOCK DATE`, y = `PH TANK`),
+               pch = 21,
+               fill = "dark green",
+               cex = 3) +
+    geom_hline(yintercept = 9, color = "red") +
+    geom_hline(yintercept = 6, color = "red") +
+        labs(x = "Stocking Date",
+         y = "pH")
+}
+  
+
+```
+
+
+```{r}
+
+# Create final datasets
+
+fnl_dat <- list()
+
+fnl_dat$stock <- stock %>%
+  filter(!grepl('mort|dead|lost tag', NOTES, ignore.case = TRUE) &
+           !is.na(`PIT TAG 134`)) %>% 
+  bind_rows(tmplt_streams_stock$`stocking datasheet`, .) %>%
+    filter(if_any(everything(), ~ !is.na(.)))
+
+count <- stock %>% 
+  group_by(`STOCKING NUMBER`) %>% 
+  summarise(COUNT = n(),
+            .groups = "drop")
+
+fnl_dat$event <- stock %>%
+  select(matches('STOCK.*|TEMP|PH|UTM'), SPECIES, AGENCY, `PROJECT BIOLOGIST`, LOT) %>%
+  distinct(.keep_all = TRUE) %>% 
+  left_join(count, by = "STOCKING NUMBER") %>% 
+  bind_rows(tmplt_streams_stock$`stocking event datasheet`, .) %>%
+  filter(if_any(everything(), ~ !is.na(.))) 
+
+
+
+if (sum(grepl('mort|dead', stock$NOTES, ignore.case = TRUE)) > 0) {
+  fnl_dat$mort <- stock %>%
+  filter(grepl('mort|dead', NOTES, ignore.case = TRUE)) %>% 
+    bind_rows(tmplt_streams_stock$`stocking datasheet`, .) %>%
+    filter(if_any(everything(), ~ !is.na(.)))
+}
+
+
+
+if (sum(grepl('lost tag', stock$NOTES, ignore.case = TRUE)) > 0) {
+  fnl_dat$shed <- stock %>%
+  filter(grepl('lost tag', NOTES, ignore.case = TRUE) |
+           is.na(`PIT TAG 134`)) %>% 
+    bind_rows(tmplt_streams_stock$`stocking datasheet`, .) %>%
+    filter(if_any(everything(), ~ !is.na(.)))
+}
+
+
+```
+
+
+
+
+```{r}
+if (TEST == TRUE) {
+  message("Processing is in testing mode, output not saved")
+} else {
+  stock_xlsx_wkbk(.stock_data = fnl_dat$stock,
+                  .event_data = fnl_dat$event,
+                  .shed_data = fnl_dat$shed,
+                  .mort_data = NULL,
+                  .output_path = paste0(config$final_data_path,
+                                        DATA_YEAR,
+                                        "/"),
+                  .overwrite = FALSE)
+  message("Processing is in porduction mode, output saved")
+}
+```

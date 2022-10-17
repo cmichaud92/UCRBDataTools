@@ -1,4 +1,4 @@
-#' Title
+#' Create data typed STReaMS xlsx submission files
 #'
 #' @param .stock_data A data frame containing QC'd stocking data
 #' @param .event_data A data frame containing QC'd stocking_event data
@@ -11,13 +11,15 @@
 #' @export
 #'
 #' @examples
-stocking_xlsx_wkbk <- function(.stock_data, .event_data,
-                               .shed_data = NULL, .mort_data = NULL,
-                               .output_path, .overwrite) {
+stock_xlsx_wkbk <- function(.stock_data,
+                            .event_data,
+                            .shed_data = NULL,
+                            .mort_data = NULL,
+                            .output_path,
+                            .overwrite) {
 
   # Set Default options (only work on cols where data is present)
   options("openxlsx.datetimeFormat" = "yyyy-mm-dd hh:mm:ss")            # Sets default date format
-  options("openxlsx.dateFormat" = "yyyy-mm-dd")
   options("openxlsx.numFmt" = "0.0")                                    # Sets default numeric to 1 decimal place
 
   # Set style formats for specific formatting requirements
@@ -104,23 +106,23 @@ stocking_xlsx_wkbk <- function(.stock_data, .event_data,
     openxlsx::addWorksheet(wb = B, sheetName = "shed tag datasheet")                # Adds a blank sheet and names it
     openxlsx::writeData(wb = B, sheet = 3, x = .shed_data)                            # Writes data to the blank sheet
     # Add column formatting
-    openxlsx::addStyle(B, 1, style = n0,                                             # Associates styles to specific cols
+    openxlsx::addStyle(B, 3, style = n0,                                             # Associates styles to specific cols
                        rows = 2:(nrow(.shed_data)+1),
                        cols = st_n0,
                        gridExpand = TRUE)
-    openxlsx::addStyle(B, 1, style = n1,
+    openxlsx::addStyle(B, 3, style = n1,
                        rows = 2:(nrow(.shed_data)+1),
                        cols = st_n1,
                        gridExpand = TRUE)
-    openxlsx::addStyle(B, 1, style = n4,
+    openxlsx::addStyle(B, 3, style = n4,
                        rows = 2:(nrow(.shed_data)+1),
                        cols = st_n4,
                        gridExpand = TRUE)
-    openxlsx::addStyle(B, 1, style = t,
+    openxlsx::addStyle(B, 3, style = t,
                        rows = 2:(nrow(.shed_data)+1),
                        cols = st_t,
                        gridExpand = TRUE)
-    openxlsx::addStyle(B, 1, style = ts,
+    openxlsx::addStyle(B, 3, style = ts,
                        rows = 2:(nrow(.shed_data)+1),
                        cols = st_ts,
                        gridExpand = TRUE)
@@ -130,23 +132,23 @@ stocking_xlsx_wkbk <- function(.stock_data, .event_data,
     openxlsx::addWorksheet(wb = B, sheetName = "mortality datasheet")                # Adds a blank sheet and names it
     openxlsx::writeData(wb = B, sheet = 4, x = .mort_data)                            # Writes data to the blank sheet
     # Add column formatting
-    openxlsx::addStyle(B, 1, style = n0,                                             # Associates styles to specific cols
+    openxlsx::addStyle(B, 4, style = n0,                                             # Associates styles to specific cols
                        rows = 2:(nrow(.mort_data)+1),
                        cols = st_n0,
                        gridExpand = TRUE)
-    openxlsx::addStyle(B, 1, style = n1,
+    openxlsx::addStyle(B, 4, style = n1,
                        rows = 2:(nrow(.mort_data)+1),
                        cols = st_n1,
                        gridExpand = TRUE)
-    openxlsx::addStyle(B, 1, style = n4,
+    openxlsx::addStyle(B, 4, style = n4,
                        rows = 2:(nrow(.mort_data)+1),
                        cols = st_n4,
                        gridExpand = TRUE)
-    openxlsx::addStyle(B, 1, style = t,
+    openxlsx::addStyle(B, 4, style = t,
                        rows = 2:(nrow(.mort_data)+1),
                        cols = st_t,
                        gridExpand = TRUE)
-    openxlsx::addStyle(B, 1, style = ts,
+    openxlsx::addStyle(B, 4, style = ts,
                        rows = 2:(nrow(.mort_data)+1),
                        cols = st_ts,
                        gridExpand = TRUE)

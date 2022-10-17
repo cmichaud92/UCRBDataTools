@@ -1,0 +1,4 @@
+name: stock_check_submission
+description: >
+   Check STReaMS submissions for errors and apply specific corrections
+create_dir: FALSE
