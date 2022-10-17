@@ -13,7 +13,8 @@ get_config <- function(.config_name, .machine = "FWS", .study) {
     CONFIG_PATH <-  paste0("C:/Users/cmichaud/Projects_git/etc/",
                            .config_name)
   } else if (.machine == "CNHP") {
-    CONFIG_PATH <- "/Users/jstahli/Documents/etc/config_128_standard.yml"
+    CONFIG_PATH <- paste0("/Users/jstahli/Documents/etc/",
+                          .config_name)
   } else {
     stop(".machine not recognized")
   }
