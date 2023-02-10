@@ -7,7 +7,7 @@ Description: Convenience functions used to modify dataset types common to UCRB R
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Depends: 
     R (>= 2.10)
 LazyData: true
@@ -21,7 +21,8 @@ Imports:
     stats,
     openxlsx,
     config,
-    tibble
+    tibble,
+    stringr
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

@@ -123,6 +123,15 @@
 #' @format A list
 #'
 #'
+"tmplt_adamas_field"
+
+#' Data typed adamas field data upload template
+#'
+#' A list, 3 elements (dataframes)
+#'
+#' @format A list
+#'
+#'
 "dimension_streams"
 
 #' A list including useful species subsetting vectors
