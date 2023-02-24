@@ -3,7 +3,7 @@
 \docType{data}
 \name{tmplt_adamas_field}
 \alias{tmplt_adamas_field}
-\title{A list including relevant dimension tables and vectors from the STReaMS database}
+\title{A series of dataframes useful in generating ADAMAS data submissions}
 \format{
 A list
 }
@@ -11,6 +11,6 @@ A list
 tmplt_adamas_field
 }
 \description{
-A large object containing 19 elements
+A series of dataframes useful in generating ADAMAS data submissions
 }
 \keyword{datasets}

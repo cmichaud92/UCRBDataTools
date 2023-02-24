@@ -3,7 +3,7 @@
 \docType{data}
 \name{dimension_streams}
 \alias{dimension_streams}
-\title{Data typed adamas field data upload template}
+\title{A series of tables and vectors referencing STReaMS dimenson tables}
 \format{
 A list
 }
@@ -11,6 +11,6 @@ A list
 dimension_streams
 }
 \description{
-A list, 3 elements (dataframes)
+A large object containing 19 elements
 }
 \keyword{datasets}

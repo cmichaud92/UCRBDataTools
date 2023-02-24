@@ -85,7 +85,7 @@
 #'
 "tmplt_streams_field"
 
-#' Data typed streams field data upload template, including vectors of rqd fields
+#' Data typed streams stocking data upload template, including vectors of rqd fields
 #' and more
 #'
 #' A list, 9 elements
@@ -116,18 +116,27 @@
 #'
 "tmplt_electrofish_standard_v2"
 
-#' A list including relevant dimension tables and vectors from the STReaMS database
+#' A series of dataframes useful in generating ADAMAS data submissions
 #'
-#' A large object containing 19 elements
+#'
 #'
 #' @format A list
 #'
 #'
 "tmplt_adamas_field"
 
-#' Data typed adamas field data upload template
+#' A datatyped dataframe for heritage data submission generation
 #'
-#' A list, 3 elements (dataframes)
+#'
+#'
+#' @format An empty dataframe
+#'
+#'
+"tmplt_heritage"
+
+#' A series of tables and vectors referencing STReaMS dimenson tables
+#'
+#' A large object containing 19 elements
 #'
 #' @format A list
 #'

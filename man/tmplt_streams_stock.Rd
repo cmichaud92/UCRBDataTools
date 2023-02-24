@@ -3,7 +3,7 @@
 \docType{data}
 \name{tmplt_streams_stock}
 \alias{tmplt_streams_stock}
-\title{Data typed streams field data upload template, including vectors of rqd fields
+\title{Data typed streams stocking data upload template, including vectors of rqd fields
 and more}
 \format{
 A list
