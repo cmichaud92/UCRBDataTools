@@ -156,7 +156,7 @@ stock_xlsx_wkbk <- function(.stock_data,
 
   openxlsx::saveWorkbook(wb = B,
                          file = file.path(.output_path, paste0(paste("STReaMS_stocking_fmt",
-                                                                     unique(.stock_data$`STOCK YEAR`),
+                                                                     max(.stock_data$`STOCK YEAR`),
                                                                      unique(.stock_data$AGENCY),
                                                                      sep = "_"),
                                                                ".xlsx")),

@@ -151,3 +151,13 @@
 #'
 #'
 "vec_spp"
+
+#' Template to check data against the electrofishing database schema
+#'
+#' A dataset containing 1 record (NA) but possessing typed columns.  This may be
+#' joined to processed data to ensure no unexpected changes to data types
+#'
+#' @format A list containing 3 typed dataframes
+#'
+#'
+"tmplt_electrofish_standard_db_v2"

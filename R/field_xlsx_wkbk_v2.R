@@ -173,7 +173,7 @@ field_xlsx_wkbk <- function(.site_data,
 
 
 
-    openxlsx::saveWorkbook(wb = B, file = file.path(.output_path, paste0(paste("STReaMS_field-collection_fmt",
+    openxlsx::saveWorkbook(wb = B, file = paste0(.output_path, paste0(paste("STReaMS_field-collection_fmt",
                                                                                .study,
                                                                                .agency,
                                                                                .year,

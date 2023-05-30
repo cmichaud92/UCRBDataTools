@@ -42,8 +42,9 @@ str_parse_enc <- function(.path) {
                   utm_zone = UTMZone,
                   lon = Longitude,
                   lat = Latitude,
-                  flg_indiv = IndividualDBAFlag,
-                  flg_enc = EncounterDBAFlag,
-                  flg_notes_indiv = IndividualDBAFlagNotes,
-                  flg_notes_enc = EncounterDBAFlagNotes)
+                  field_notes_enc = EncounterNotes,
+                  dba_flg_indiv = IndividualDBAFlag,
+                  dba_flg_enc = EncounterDBAFlag,
+                  dba_notes_indiv = IndividualDBAFlagNotes,
+                  dba_notes_enc = EncounterDBAFlagNotes)
 }

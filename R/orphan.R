@@ -35,7 +35,10 @@ orphan <- function(.parent, .child, .key, .write2csv = FALSE) {
     return(utils::head(dat))
 
     if (.write2csv == TRUE){
-    readr::write_csv(dat, "./orphan.csv", na = "")
+    readr::write_csv(dat,
+                     paste("./output/",
+                     AGENCY,
+                     "/orphan.csv"), na = "")
     }
   } else {
     message(paste("PASS: No orphaned records in",
