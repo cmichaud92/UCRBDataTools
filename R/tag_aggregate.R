@@ -9,35 +9,36 @@
 #' @examples
 #' tag_aggregate(tbl_ex_parsed_xlsx, .interval = "hour")
 #' tag_aggregate(tbl_ex_parsed_dat, .interval = "day")
-tag_aggregate <- function(.data, .interval = "min") {
+tag_aggregate <- function(.data,
+                          .interval = "min") {
 
   stopifnot(is.data.frame(.data),
             .interval %in% c("min", "hour", "day"),
-            c("cd_hex", "id_reader", "id_antenna", "source_file") %in% names(.data))
+            c("cd_pit134_hex", "source_file") %in% names(.data))
 
   if (.interval == "min") {
     .data |>
-      dplyr::mutate(interval = format(ts_scan, '%Y-%m-%d %H:%M')) |>
-      dplyr::group_by(cd_hex, interval, id_reader, id_antenna, source_file) |>
-      dplyr::summarise(ts_scan = dplyr::first(ts_scan),
+      dplyr::mutate(interval = format(ts_enc, '%Y-%m-%d %H:%M')) |>
+      dplyr::group_by(cd_pit134_hex, interval, source_file) |>
+      dplyr::summarise(ts_enc = dplyr::first(ts_enc),
                        n_detections = dplyr::n(),
                        .groups = "drop") |>
       dplyr::select(-interval)
 
   } else if (.interval == "hour") {
     .data |>
-      dplyr::mutate(interval = format(ts_scan, '%Y-%m-%d %H')) |>
-      dplyr::group_by(cd_hex, interval, id_reader, id_antenna, source_file) |>
-      dplyr::summarise(ts_scan = dplyr::first(ts_scan),
+      dplyr::mutate(interval = format(ts_enc, '%Y-%m-%d %H')) |>
+      dplyr::group_by(cd_pit134_hex, interval, source_file) |>
+      dplyr::summarise(ts_enc = dplyr::first(ts_enc),
                        n_detections = dplyr::n(),
                        .groups = "drop") |>
       dplyr::select(-interval)
 
   } else if (.interval == "day") {
     .data |>
-      dplyr::mutate(interval = format(ts_scan, '%Y-%m-%d')) |>
-      dplyr::group_by(cd_hex, interval, id_reader, id_antenna, source_file) |>
-      dplyr::summarise(ts_scan = dplyr::first(ts_scan),
+      dplyr::mutate(interval = format(ts_enc, '%Y-%m-%d')) |>
+      dplyr::group_by(cd_pit134_hex, interval, source_file) |>
+      dplyr::summarise(ts_enc = dplyr::first(ts_enc),
                        n_detections = dplyr::n(),
                        .groups = "drop") |>
       dplyr::select(-interval)

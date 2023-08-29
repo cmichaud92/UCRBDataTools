@@ -17,7 +17,7 @@
 #'orphan(.parent = parent, .child = child, .key = "key")
 
 
-orphan <- function(.parent, .child, .key, .write2csv = FALSE) {
+orphan <- function(.parent, .child, .key, .write2csv = FALSE, .output_path = NULL, .return_data = FALSE) {
 
   stopifnot(is.data.frame(.parent), is.data.frame(.child),
             .key %in% names(.parent), .key %in% names(.child))
@@ -36,9 +36,11 @@ orphan <- function(.parent, .child, .key, .write2csv = FALSE) {
 
     if (.write2csv == TRUE){
     readr::write_csv(dat,
-                     paste("./output/",
-                     AGENCY,
-                     "/orphan.csv"), na = "")
+                     .output_path,
+                     na = "")
+    }
+    if (.return_data == TRUE) {
+      return(dat)
     }
   } else {
     message(paste("PASS: No orphaned records in",

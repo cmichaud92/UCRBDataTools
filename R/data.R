@@ -75,6 +75,16 @@
 #'
 "tbl_spp_crswlk"
 
+#' River codes, names and limited GNIS ID's adapted from STReaMS species look-up table
+#'
+#' A dataset with 95 records and 4 fields
+#'
+#' @format A data frame
+#'
+#'
+"tbl_rvr_crswlk"
+
+
 #' Data typed streams field data upload template, including vectors of rqd fields
 #' and more
 #'
@@ -145,7 +155,7 @@
 
 #' A list including useful species subsetting vectors
 #'
-#' A list object containing 4 elements
+#' A list object containing 6 elements
 #'
 #' @format A list
 #'
@@ -161,3 +171,16 @@
 #'
 #'
 "tmplt_electrofish_standard_db_v2"
+
+#' Template to check data against the electrofishing data standard
+#'
+#' A dataset containing 1 record (NA) but possessing typed columns.  This may be
+#' joined to processed data to ensure no unexpected changes to data types
+#' Also contains column types strings for import with readr::read_csv
+#' This template superceeds `tmplt_electrofish_standard_v2`
+#'
+#' @format A list containing 3 typed dataframes and 3 column type strings
+#'
+#'
+"tmplt_electrofish_standard_v3"
+

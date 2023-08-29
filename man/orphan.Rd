@@ -4,7 +4,14 @@
 \alias{orphan}
 \title{Title Check hierarchical data for orphaned records}
 \usage{
-orphan(.parent, .child, .key, .write2csv = FALSE)
+orphan(
+  .parent,
+  .child,
+  .key,
+  .write2csv = FALSE,
+  .output_path = NULL,
+  .return_data = FALSE
+)
 }
 \arguments{
 \item{.parent}{The parent table}
