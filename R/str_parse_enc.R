@@ -22,6 +22,7 @@ str_parse_enc <- function(.path) {
                   cd_org = Org,
                   year,
                   ts_enc,
+                  dt_enc = EncounterDate,
                   cd_hex = MostRecentTag,
                   nm_rvr = RiverName,
                   rmi_enc = RiverMile,
